@@ -1,8 +1,7 @@
 {
   "name": "time-circles",
   "version": "1.0.0",
-  "description": "",
-  "main": "hardhat.config.mjs",
+  "description": "A Farcaster-native mini dApp that blends social staking, daily randomness, and gamified rewards on **Base**.  \r Each *Circle* brings together five friends for a 25-day cycle — turning time into $TICLE.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +12,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/bioxim/time-circles/issues"
   },
