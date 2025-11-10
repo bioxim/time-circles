@@ -1,0 +1,40 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // ===== File Layout =====
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // ===== Environment Settings =====
+    // Compatible con Vite + React + Electron
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+
+    // ===== Type Definitions =====
+    "types": ["node", "vite/client"],
+
+    // ===== Output & Debug =====
+    "sourceMap": true,
+    "declaration": false,
+    "declarationMap": false,
+
+    // ===== Strictness & Style =====
+    "strict": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "verbatimModuleSyntax": true,
+    "noUncheckedSideEffectImports": false,
+    "moduleDetection": "force",
+
+    // ===== Nice to Have =====
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src", "electron"],
+  "exclude": ["node_modules", "dist"]
+}
