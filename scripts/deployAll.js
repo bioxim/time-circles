@@ -3,6 +3,9 @@ const { ethers } = require("hardhat");
 async function main() {
   console.log("🚀 Starting deployment to Base Sepolia...");
 
+  // 📍 Dirección del devWallet (la tuya)
+  const devWallet = "0x1D46474f68Bdc578eAb9ab6203f2222451A80bdF";
+
   // 1️⃣ Deploy TicleToken
   const TicleToken = await ethers.getContractFactory("TicleToken");
   const ticleToken = await TicleToken.deploy();
@@ -18,6 +21,7 @@ async function main() {
   const circleContract = await CircleContract.deploy(
     stableTokenAddress,
     ticleAddress,
+    devWallet, // 🆕 nueva línea: dirección de fees
     secondsPerDay
   );
   await circleContract.waitForDeployment();
@@ -30,23 +34,22 @@ async function main() {
   console.log("🔗 CircleContract linked to TicleToken");
 
   // 4️⃣ Mint inicial (liquidez inicial)
-  const yourWallet = "0x1D46474f68Bdc578eAb9ab6203f2222451A80bdF";
   const mintAmount = ethers.parseUnits("1000", 18);
-  const tx2 = await ticleToken.mintInitial(yourWallet, mintAmount);
+  const tx2 = await ticleToken.mintInitial(devWallet, mintAmount);
   await tx2.wait();
-  console.log(`💰 Minted 1000 TICLE to ${yourWallet}`);
+  console.log(`💰 Minted 1000 TICLE to ${devWallet}`);
 
-  // 5️⃣ Deploy ArenaRegistryV2
-  const ArenaRegistryV2 = await ethers.getContractFactory("ArenaRegistryV2");
-  const arenaRegistry = await ArenaRegistryV2.deploy(ticleAddress);
+  // 5️⃣ Deploy ArenaRegistry
+  const ArenaRegistry = await ethers.getContractFactory("ArenaRegistry");
+  const arenaRegistry = await ArenaRegistry.deploy(ticleAddress, devWallet); // 🆕 agregado devWallet
   await arenaRegistry.waitForDeployment();
   const arenaAddress = await arenaRegistry.getAddress();
-  console.log(`✅ ArenaRegistryV2 deployed at: ${arenaAddress}`);
+  console.log(`✅ ArenaRegistry deployed at: ${arenaAddress}`);
 
   console.log("\n🎉 Deployment complete!");
   console.log("📜 TicleToken:", ticleAddress);
   console.log("📜 CircleContract:", circleAddress);
-  console.log("📜 ArenaRegistryV2:", arenaAddress);
+  console.log("📜 ArenaRegistry:", arenaAddress);
 }
 
 main().catch((error) => {
